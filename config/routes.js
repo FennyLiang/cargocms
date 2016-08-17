@@ -64,11 +64,13 @@ module.exports.routes = {
   'put /api/admin/post/:id': 'api/admin/PostController.update',
   'delete /api/admin/post/:id': 'api/admin/PostController.destroy',
 
-  // 'get /api/admin/Default': 'api/admin/DefaultController.find',
-  // 'get /api/admin/Default/:id': 'api/admin/DefaultController.findOne',
-  // 'post /api/admin/Default': 'api/admin/DefaultController.create',
-  // 'put /api/admin/Default/:id': 'api/admin/DefaultController.update',
-  // 'delete /api/admin/Default/:id': 'api/admin/DefaultController.destroy',
+  //----- slogan -----
+
+  'get /api/admin/slogan': 'api/admin/SloganController.find',
+  'get /api/admin/slogan/:id': 'api/admin/SloganController.findOne',
+  'post /api/admin/slogan': 'api/admin/SloganController.create',
+  'put /api/admin/slogan/:id': 'api/admin/SloganController.update',
+  'delete /api/admin/slogan/:id': 'api/admin/SloganController.destroy',
 
   //----- custom -----
   '/creator':     'labfnp/MainController.creator',
@@ -94,16 +96,6 @@ module.exports.routes = {
   "/labfnp/:controller/:action/:id?": {},
   "/admin/:controller/:action/:id?": {},
   "/:controller/:action/:id?": {},
-
-
-
-  //----- SloganController -----
-  'get /api/slogan': 'SloganController.find',
-  'get /api/slogan/:id': 'SloganController.findOne',
-
-  'post /api/slogan': 'SloganController.create',
-  'put /api/slogan/:id': 'SloganController.update',
-  'delete /api/slogan/:id': 'SloganController.destroy',
 
 
 

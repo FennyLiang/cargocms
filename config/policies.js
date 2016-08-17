@@ -48,11 +48,11 @@ module.exports.policies = {
     'index': ['passport', 'sessionAuth', 'isAdmin']
   },
   'SloganController': {
-    'index': [],
-    'findOne': [],
-    'create': [],
-    'update': [],
-    'delete': []
+    'index': ['nocache'],
+    'findOne': ['nocache'],
+    'create': ['nocache'],
+    'update': ['nocache'],
+    'delete': ['nocache']
   },
 
   /***************************************************************************

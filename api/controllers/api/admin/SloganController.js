@@ -15,17 +15,30 @@ module.exports = {
   },
 
   find: async (req, res) => {
-    try{
-      const slogans = await Slogan.findAll();
-      sails.log.info('find all slogan =>', slogans);
-      res.ok({
-        message: 'find all slogan success',
-        data: {
-         items: slogans
-        }
-      })
-    }
-    catch(e){
+    try {
+      let {query} = req
+      let {serverSidePaging} = query
+
+      if (serverSidePaging) {
+
+        const findQuery = FormatService.getQueryObj(query);
+        let result = await User.findAndCountAll(findQuery)
+        let data = result.rows
+        let recordsTotal = data.length
+        let recordsFiltered = result.count
+        let draw = parseInt(req.draw) + 1
+        res.ok({draw, recordsTotal, recordsFiltered, data});
+      } else {
+        const slogans = await Slogan.findAll();
+        sails.log.info('find all slogan =>', slogans);
+        res.ok({
+          message: 'find all slogan success',
+          data: {
+            items: slogans
+          }
+        })
+      }
+    }catch(e){
       res.serverError({ message: e.message, data: {}});
     }
   },

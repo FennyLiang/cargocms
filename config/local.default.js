@@ -5,7 +5,7 @@ module.exports = {
   urls: {
     afterSignIn: '/lab'
   },
-  offAuth: false,
+  offAuth: true,
   passport: {
     local: {
       strategy: require('passport-local').Strategy
