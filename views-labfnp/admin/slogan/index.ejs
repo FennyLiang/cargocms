@@ -10,17 +10,18 @@
 	</tr>
 	</thead>
 	<tbody>
-	<tr v-for="slogan in data.items" v-on:click="selection($index)" v-on:dblclick="dblclick($index)">
-		<td>{{ slogan.id }}</td>
-		<td><a href="/admin/#/admin/slogan/show/{{slogan.id}}">{{ slogan.content }}</a></td>
-		<td>{{ slogan.source }}</td>
-		<td>{{ slogan.lastLogin }}</td>
+	<tr v-for="item in data.items" v-on:dblclick="dblclick(item.id)">
+		<td>{{ item.id }}</td>
+		<td><a href="/admin/#/admin/{{modelName}}/show/{{item.id}}">{{ item.username }}</a></td>
+		<td>{{ item.displayName }}</td>
+		<td>{{ item.content }}</td>
+		<td>{{ item.source }} </td>
 		<td align="center" style="cursor: pointer;">
 			<div class="row">
-				<a class="btn btn-default btn-xs" role="button" v-on:click="show(slogan.id)">
+				<a class="btn btn-default btn-xs" role="button" v-on:click="show(item.id)">
 					<i class="fa-fw fa fa-eye text-muted" />
 				</a>
-				<a class="btn btn-default btn-xs" role="button" v-on:click="edit(slogan.id)">
+				<a class="btn btn-default btn-xs" role="button" v-on:click="edit(item.id)">
 					<i class="fa-fw fa fa-pencil-square-o text-muted"/>
 				</a>
 			</div>
