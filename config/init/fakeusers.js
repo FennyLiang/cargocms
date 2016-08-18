@@ -13,6 +13,10 @@ module.exports.init = async () => {
           UserId: user.id
         });
       });
+      Slogan.create({
+        content: '123',
+        source: '123'
+      });
     }
   } catch (e) {
     console.error(e);
