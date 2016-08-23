@@ -1,35 +1,49 @@
 require("../../bootstrap.test.js")
 import {login, logout} from "../../util/e2eHelper.js"
 
-describe('test user', () => {
-  before((done)=>{
-    try {
-      login("admin");
-      done();
-    } catch (e) {
-      done(e);
-    }
-  })
-  after((done)=>{
-    try {
-      logout();
-      done();
-    } catch (e) {
-      done(e);
-    }
-  })
+describe.only('test user', () => {
 
-  it('create @watch',async (done) => {
+  describe('user login',() =>{
+
+      it('user login step start', (done)=>{
+        try {
+          //login
+          browser.url('http://localhost:1338/admin/login');
+          browser.setValue('[name="identifier"]', 'admin')
+          .setValue('[name="password"]', 'admin')
+          .click('[type=submit]');
+          done();
+        } catch (e) {
+          done(e);
+        }
+      });
+
+    it('Update user infomation', async(done) => {
+
+      try{
+
+        const userInfo = {
+          
+        }
+
+      }catch(e){
+        done(e);
+      }
+
+    })
+
+
+    it('create @watch',async (done) => {
     try {
       const userData = {
-        username: 'usertest1',
-        email: 'usertest1@gmail.com',
-        firstName: '王',
-        lastName: '雇員',
-        password: '0000'
+        username: 'LALA',
+        email: 'lalala@mail.com',
+        firstName: 'la',
+        lastName: 'lala',
+        password: '123'
       };
       // 新增
-      browser.url('/admin/#/admin/user');
+      browser.url('http://localhost:1338/admin/#/admin/user');
       browser.waitForExist('#ToolTables_main-table_1',2000)
       browser.click('#ToolTables_main-table_1');
       browser.waitForExist('[class="btn btn-primary"]',1000);
@@ -55,6 +69,19 @@ describe('test user', () => {
     }
   });
 
+    it.skip('user logout', (done) => {
 
+      try{
+        //logout
+        browser.url('http://localhost:1338/logout?url=/admin/login');
+        done();
+      }
+      catch(e){
+        done(e);
+      }
+
+    });
+
+  });
 
 });
