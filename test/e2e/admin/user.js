@@ -56,14 +56,13 @@ describe.only('test user', () => {
       browser.click('#main-table-widget tr th:nth-child(1)');
 
       //檢查
-      const res = User.find({where: {email: userData.email}});
-      const usernameField = browser.element('#main-table-widget tbody tr:nth-child(1) td:nth-child(4)');
+      const usernameField = browser.element('#main-table-widget tbody tr:nth-child(1) td:nth-child(4)').getText();
+      const res = await User.find({where: {email: userData.email}});
 
-
+      //檢查資料庫data是否與前端呈現相符
       expect(res.email).to.be.equal(usernameField);
 
-      // expect(browser.elements('#ToolTables_main-table_1')!=null).to.equal(true);
-      //done();
+      done();
     } catch (e) {
       done(e);
     }
