@@ -5,8 +5,8 @@ describe.only('test user', () => {
 
   describe('user login',() =>{
 
-      it('user login step start', (done)=>{
-        try {
+    it('user login step start', (done)=>{
+      try {
           //login
           browser.url('http://localhost:1338/admin/login');
           browser.setValue('[name="identifier"]', 'admin')
@@ -20,14 +20,14 @@ describe.only('test user', () => {
 
 
     it('create @watch',async (done) => {
-    try {
-      const userData = {
-        username: 'LALA',
-        email: 'lalala@mail.com',
-        firstName: 'la',
-        lastName: 'lala',
-        password: '123'
-      };
+      try {
+        const userData = {
+          username: 'LALA',
+          email: 'lalala@mail.com',
+          firstName: 'la',
+          lastName: 'lala',
+          password: '123'
+        };
       // 新增
       browser.url('http://localhost:1338/admin/#/admin/user');
       browser.waitForExist('#ToolTables_main-table_1',2000)
@@ -69,9 +69,9 @@ describe.only('test user', () => {
   });
 
     it('Update user infomation', async(done) => {
-
       try{
         const updateUser = 'LALA';
+
         const userInfo = {
           username: 'BrooklynBackham',
           email: 'brooklynBay@email.com',
@@ -80,17 +80,42 @@ describe.only('test user', () => {
           password: 'chloe'
         }
 
-        browser.waitForExist('[type=search]');
-        browser.setValue('#main-table_filter input[type=search]', updateUser)
-        .click('#ToolTables_main-table_1')
-        .waitForExist('#main-form', 1000, true);
+        //search user item
+        browser.waitForExist('#main-table_filter input[type=search]', 1000)
+        browser.setValue('#main-table_filter input[type=search]', updateUser);
+        browser.click('#main-table tbody').click('#ToolTables_main-table_2');
+
+        //loading edit page
+        const updateUserInput = browser.element('#content');
+        updateUserInput.waitForExist(1000);
+
+        updateUserInput
+          .setValue('[name="username"]', userInfo.username)
+          .setValue('[name="email"]', userInfo.email)
+          .setValue('[name="firstName"]', userInfo.firstName)
+          .setValue('[name="lastName"]', userInfo.lastName);
+
+        //save
+        browser
+          .click('#main-form footer button[type="submit"]')
+          .waitForExist('#main-table-widget', 1000, true);
+
+        //降冪排序
+        browser.waitForExist('#main-table-widget tr th:nth-child(1)', 1000);
+        browser.click('#main-table-widget tr th:nth-child(1)');
+
+        //檢查
+        const userUpdateField = browser.element('#main-table-widget tbody tr:nth-child(1) td:nth-child(4)').getText();
+        const res = await User.find({where: {email: userInfo.email}});
+
+        //檢查資料庫data是否與前端呈現相符
+        expect(res.email).to.be.equal(userUpdateField);
 
         done();
       }catch(e){
         done(e);
       }
-
-    })
+    });
 
     it.skip('user logout', (done) => {
 
