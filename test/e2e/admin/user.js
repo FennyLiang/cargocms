@@ -59,7 +59,7 @@ describe.only('test user', () => {
       const usernameField = browser.element('#main-table-widget tbody tr:nth-child(1) td:nth-child(4)').getText();
       const res = await User.find({where: {email: userData.email}});
 
-      //檢查資料庫data是否與前端呈現相符
+      //檢查新增後資料庫data是否與前端呈現相符
       expect(res.email).to.be.equal(usernameField);
 
       done();
@@ -104,11 +104,11 @@ describe.only('test user', () => {
         browser.waitForExist('#main-table-widget tr th:nth-child(1)', 1000);
         browser.click('#main-table-widget tr th:nth-child(1)');
 
-        //檢查
+        //check
         const userUpdateField = browser.element('#main-table-widget tbody tr:nth-child(1) td:nth-child(4)').getText();
         const res = await User.find({where: {email: userInfo.email}});
 
-        //檢查資料庫data是否與前端呈現相符
+        //檢查更新後資料庫data是否與前端呈現相符
         expect(res.email).to.be.equal(userUpdateField);
 
         done();
